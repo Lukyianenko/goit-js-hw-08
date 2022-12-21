@@ -7,19 +7,19 @@ const input = document.querySelector('.feedback-form input');
 const userForm = {};
 
 form.addEventListener('submit', onFormSubmit);
-form.addEventListener('input', throttle(onTextereaInput, 250)); 
+form.addEventListener('input', throttle(onTextereaInput, 500)); 
 
 formSavedInfoUser();
 
 function onFormSubmit(evt) {
     evt.preventDefault();
+    console.log(JSON.parse(localStorage.getItem("feedback-form-state")));
     evt.currentTarget.reset();
     localStorage.removeItem("feedback-form-state");
 }
 
 function onTextereaInput(evt) {
     userForm[evt.target.name] = evt.target.value;
-    console.log(userForm);
     localStorage.setItem("feedback-form-state", JSON.stringify(userForm));
 }
 
