@@ -5,11 +5,11 @@
     const player = new Player(iframe);
    
     onReloadPage();
-    
+
     player.on('timeupdate', throttle(function(data) {
     const timeStop = data.seconds;
     localStorage.setItem("videoplayer-current-time", timeStop);
-    }, 500));
+    }, 1000));
 
 
     function onReloadPage() {
