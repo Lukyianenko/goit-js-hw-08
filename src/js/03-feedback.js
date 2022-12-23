@@ -5,32 +5,34 @@ const textarea = document.querySelector('.feedback-form textarea');
 const input = document.querySelector('.feedback-form input');
 const button = document.querySelector('.feedback-form button');
 
-button.disabled = true;
+const userForm = {
+    email: '',
+    message: '',
+};
 
-const userForm = {};
 
 onSavedInfoReload();
-// onCheckSubmit();
 
 form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input', throttle(onTextereaInput, 500)); 
 
 function onFormSubmit(evt) {
     evt.preventDefault();
-    console.log(userForm);
-    evt.currentTarget.reset();
-    localStorage.removeItem("feedback-form-state");
-    button.disabled = true;
+    if (userForm.email != '' && userForm.message != '') {
+        console.log(userForm);
+        evt.currentTarget.reset();
+        localStorage.removeItem("feedback-form-state");
+        userForm.email = "";
+        userForm.message = "";
+    } else {
+        alert("Заполните все поля!");
+    }
 }
 
 function onTextereaInput(evt) {
     userForm[evt.target.name] = evt.target.value;
     localStorage.setItem("feedback-form-state", JSON.stringify(userForm));
-    if (input.value == '' || textarea == '') {
-        button.disabled = true;
-    } else {
-        button.disabled = false;
-    }
+    
 }
 
 function onSavedInfoReload() {
@@ -51,9 +53,4 @@ function onSavedInfoReload() {
 
 }
 
-// function onCheckSubmit() {
-//     if (input.value != "" || textarea.value != "") {
-//         button.disabled = false;
-//     } 
-// }
 
